@@ -67,10 +67,3 @@ def gravityAxis(A, B, axis):
 
 setBodies()  # creates an object for every body in the system (file bodies.txt)
 addGravities(2)
-
-# """
-# ORDER:
-# 0. Set up the system (create an object for each body)
-# 1. Determine all gravitational forces applied. (F=(Gmm)/r^2)
-# 2. With the speed and positions from last step, determine the current position
-# 3. Actualize the position and speed of the object."""
