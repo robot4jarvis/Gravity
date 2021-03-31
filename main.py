@@ -46,12 +46,15 @@ def setBodies():
                 bodyList.append(Body(lect[0], lect[1], lect[2], lect[3], lect[4], lect[5]))  # adds an object to "bodyList" that contains the information needed.
 
 
-# def addGravities(bodyN):
-#  for j in bodyList:
-#     if j is bodyList[bodyN]:
-#        pass
-#   else:
-#      print("hi")
+def addGravities(bodyN):
+    for j in bodyList:
+        if j is bodyList[bodyN]:
+            pass
+        else:
+            bodyList[bodyN].F[0] = gravityAxis(bodyList[bodyN], j, 0)
+            bodyList[bodyN].F[1] = gravityAxis(bodyList[bodyN], j, 1)
+            bodyList[bodyN].F[2] = gravityAxis(bodyList[bodyN], j, 2)
+
 
 def gravityAxis(A, B, axis):
     """A:Body where the force is being applied, B:body that applies the force, 'axis': axis nº."""
@@ -59,7 +62,6 @@ def gravityAxis(A, B, axis):
     pytDist = hypot((float(A.pos[0]) - float(B.pos[0])), (float(A.pos[1]) - float(B.pos[1])), (float(A.pos[2]) - float(B.pos[2])))  # determines the pythagorean distance
     gravity = (A.m * B.m * G)/(pytDist**2)  # determines the module of gravity
     return (gravity*dAxis)/pytDist  # returns the gravity in a certain axis
-
 
 setBodies()  # creates an object for every body in the system (file bodies.txt)
 # """
