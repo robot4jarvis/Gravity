@@ -9,21 +9,21 @@ class Body:
         self.name = name  # string
         self.m = float(m)  # mass, scalar magnitude
         self.R = float(R)  # radius, scalar magnitude
-        if isinstance(pos, str):  # position, vector (array with 3 values)
-            temp = pos[1:-1]
-            self.pos = temp.split(",")
+        if isinstance(pos, str):  # if it receives a String (it'll only happen the first time)
+            temp = pos[1:-1]  # takes out the parenthesis
+            self.pos = [float(i) for i in temp.split(",")]  # turns the string into a list
         else:
-            self.pos = pos
+            self.pos = pos  # if we hadn't received a string, it just asigns the value given
 
         if isinstance(v, str):  # speed, vector (array with 3 values)
             temp = v[1:-1]
-            self.v = temp.split(",")
+            self.v = [float(i) for i in temp.split(",")]
         else:
             self.v = v
 
         if isinstance(F, str):  # force applied, vector (array with 3 values)
-            temp = F[1:-1]
-            self.F = temp.split(",")
+            temp = F[1:-2]
+            self.F = [float(i) for i in temp.split(",")]
         else:
             self.F = F
 
@@ -47,24 +47,27 @@ def setBodies():
 
 
 def addGravities(bodyN):
+    """ Applies gravitational forces from all bodies to 'bodyN'"""
     for j in bodyList:
         if j is bodyList[bodyN]:
             pass
         else:
-            bodyList[bodyN].F[0] = gravityAxis(bodyList[bodyN], j, 0)
-            bodyList[bodyN].F[1] = gravityAxis(bodyList[bodyN], j, 1)
-            bodyList[bodyN].F[2] = gravityAxis(bodyList[bodyN], j, 2)
+            bodyList[bodyN].F[0] += gravityAxis(bodyList[bodyN], j, 0)  # Apply force in x axis
+            bodyList[bodyN].F[1] += gravityAxis(bodyList[bodyN], j, 1)  # Apply force in y axis
+            bodyList[bodyN].F[2] += gravityAxis(bodyList[bodyN], j, 2)  # Apply force in z axis
 
 
 def gravityAxis(A, B, axis):
     """A:Body where the force is being applied, B:body that applies the force, 'axis': axis nº."""
-    dAxis = float(A.pos[axis]) - float(B.pos[axis])  # Determines the distance in axis "axis"
-    pytDist = hypot((float(A.pos[0]) - float(B.pos[0])), (float(A.pos[1]) - float(B.pos[1])), (float(A.pos[2]) - float(B.pos[2])))  # determines the pythagorean distance
+    dAxis = A.pos[axis] - B.pos[axis]  # Determines the distance in axis "axis"
+    pytDist = hypot((A.pos[0] - B.pos[0]), (A.pos[1] - B.pos[1]), (A.pos[2] - B.pos[2]))  # determines the pythagorean distance
     gravity = (A.m * B.m * G) / (pytDist ** 2)  # determines the module of gravity
-    return (gravity * dAxis) / pytDist  # returns the gravity in a certain axis
+    return (gravity * dAxis) / pytDist  # returns the gravity in a certain axis (similar triangles)
 
 
 setBodies()  # creates an object for every body in the system (file bodies.txt)
+addGravities(2)
+
 # """
 # ORDER:
 # 0. Set up the system (create an object for each body)
