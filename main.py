@@ -64,6 +64,7 @@ def gravityAxis(A, B, axis):
 setBodies()  # creates an object for every body in the system (file bodies.txt)
 
 print("hi")
+# nova prova
 # """
 # ORDER:
 # 0. Set up the system (create an object for each body)
