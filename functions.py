@@ -63,3 +63,8 @@ def gravityAxis(A, B, axis):
     pytDist = hypot((A.pos[0] - B.pos[0]), (A.pos[1] - B.pos[1]), (A.pos[2] - B.pos[2]))  # determines the pythagorean distance
     gravity = (A.m * B.m * G) / (pytDist ** 2)  # determines the module of gravity
     return (gravity * dAxis) / pytDist  # returns the gravity in a certain axis (similar triangles)
+
+
+def reposition(A):
+    for i in range(0, 3):
+        print(i)
