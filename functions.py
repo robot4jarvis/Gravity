@@ -1,5 +1,8 @@
 from math import hypot
 
+bodyList = []
+G = 6.67408e-11  # Universal gravitational constant (6.67408e-11)
+
 
 class Body:
     """(name,m,R,pos,v,F)
