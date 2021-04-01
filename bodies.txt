@@ -6,7 +6,6 @@
 # All units must be in IS units (kg, m, m/s, N...)
 
 earth;5.972e24;2;(0,0,0);(1,0,1);(0,0,0)
-earth2;5.972e24;2;(0,0,0);(1,0,1);(0,0,0)
 apple;1;2;(6.371e6,0,0);(1,0,1);(0,0,0)
 
 / END OF FILE
