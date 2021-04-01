@@ -2,6 +2,8 @@ from math import hypot
 
 bodyList = []
 G = 6.67408e-11  # Universal gravitational constant (6.67408e-11)
+timeStep = 0.1  # time passed each step
+time = 0.0
 
 
 class Body:
@@ -62,9 +64,11 @@ def gravityAxis(A, B, axis):
     dAxis = A.pos[axis] - B.pos[axis]  # Determines the distance in axis "axis"
     pytDist = hypot((A.pos[0] - B.pos[0]), (A.pos[1] - B.pos[1]), (A.pos[2] - B.pos[2]))  # determines the pythagorean distance
     gravity = (A.m * B.m * G) / (pytDist ** 2)  # determines the module of gravity
-    return (gravity * dAxis) / pytDist  # returns the gravity in a certain axis (similar triangles)
+    return (-gravity * dAxis) / pytDist  # returns the gravity in a certain axis (similar triangles). I don't know why, but it needs a "-".
 
 
-def reposition(A):
+def move(A):
     for i in range(0, 3):
-        print(i)
+        A.pos[i] += A.v[i] * timeStep + 0.5 * (A.F[i] / A.m) * (timeStep ** 2)  # s = so + vo*t + (1/2)*a*t^2 for all axis
+        A.v[i] += (A.F[i] / A.m)*timeStep  # speed
+
