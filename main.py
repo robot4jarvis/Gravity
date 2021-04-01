@@ -1,4 +1,4 @@
-from math import sqrt, pow, hypot
+from math import hypot
 
 
 class Body:
@@ -46,15 +46,16 @@ def setBodies():
                 bodyList.append(Body(lect[0], lect[1], lect[2], lect[3], lect[4], lect[5]))  # adds an object to "bodyList" that contains the information needed.
 
 
-def addGravities(bodyN):
-    """ Applies gravitational forces from all bodies to 'bodyN'"""
+def addGravities(body):
+    """ Applies gravitational forces from all bodies to 'body'"""
+    body.F = [0 for b in body.F]  # we set all values in "Force" to 0
     for j in bodyList:
-        if j is bodyList[bodyN]:
+        if j is body:
             pass
         else:
-            bodyList[bodyN].F[0] += gravityAxis(bodyList[bodyN], j, 0)  # Apply force in x axis
-            bodyList[bodyN].F[1] += gravityAxis(bodyList[bodyN], j, 1)  # Apply force in y axis
-            bodyList[bodyN].F[2] += gravityAxis(bodyList[bodyN], j, 2)  # Apply force in z axis
+            body.F[0] += gravityAxis(body, j, 0)  # Apply force in x axis
+            body.F[1] += gravityAxis(body, j, 1)  # Apply force in y axis
+            body.F[2] += gravityAxis(body, j, 2)  # Apply force in z axis
 
 
 def gravityAxis(A, B, axis):
@@ -66,4 +67,6 @@ def gravityAxis(A, B, axis):
 
 
 setBodies()  # creates an object for every body in the system (file bodies.txt)
-addGravities(2)
+for i in bodyList:  # computates the gravities for all bodies
+    addGravities(i)
+    print(i.F)
